@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>History — Modus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="app-shell">
+  <aside class="sidebar hidden md:block" data-sidebar-container></aside>
+  <div class="md:hidden" data-topbar-container></div>
+
+  <main class="px-5 md:px-10 py-8 max-w-4xl w-full mx-auto">
+    <div class="flex items-center justify-between mb-2 flex-wrap gap-3">
+      <h1 class="font-display text-3xl">History</h1>
+      <div class="flex items-center gap-3">
+        <span id="history-count" class="eyebrow"></span>
+        <button id="bulk-delete-btn" class="btn-secondary text-sm hidden">Delete selected</button>
+      </div>
+    </div>
+    <p class="eyebrow mb-8">Your last 15 generations are kept — older ones auto-delete</p>
+
+    <div id="history-list" class="flex flex-col gap-4"></div>
+    <div id="history-empty" class="hidden card p-10 text-center">
+      <p class="font-display text-2xl mb-2">Nothing saved yet</p>
+      <p style="color: var(--ink-soft)" class="mb-5">Every generation you run is saved here automatically.</p>
+      <a href="dashboard.html" class="btn-primary">Generate your first post</a>
+    </div>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/history.js"></script>
+</body>
+</html>

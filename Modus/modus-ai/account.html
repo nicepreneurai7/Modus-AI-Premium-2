@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Account — Modus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="app-shell">
+  <aside class="sidebar hidden md:block" data-sidebar-container></aside>
+  <div class="md:hidden" data-topbar-container></div>
+
+  <main class="px-5 md:px-10 py-8 max-w-2xl w-full mx-auto">
+    <h1 class="font-display text-3xl mb-8">Account</h1>
+
+    <div class="card p-6 mb-6">
+      <p class="eyebrow mb-3">Signed in as</p>
+      <p id="account-email" class="font-display text-xl"></p>
+    </div>
+
+    <div class="card p-6 mb-6">
+      <p class="eyebrow mb-4">Plan</p>
+      <div class="flex items-center justify-between">
+        <div>
+          <p id="plan-label" class="font-display text-xl"></p>
+          <p id="plan-detail" class="text-sm mt-1" style="color: var(--ink-soft)"></p>
+        </div>
+        <a href="pricing.html" id="plan-cta" class="btn-primary">Upgrade</a>
+      </div>
+    </div>
+
+    <div class="card p-6 mb-6">
+      <p class="eyebrow mb-4">Profile</p>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label class="eyebrow block mb-2">Role</label>
+          <select id="role-select" class="input-field"></select>
+        </div>
+        <div>
+          <label class="eyebrow block mb-2">Niche</label>
+          <select id="niche-select" class="input-field"></select>
+        </div>
+      </div>
+      <button id="save-profile-btn" class="btn-primary mt-5">Save changes</button>
+    </div>
+
+    <div class="card p-6" style="border-color: var(--danger)">
+      <p class="eyebrow mb-2" style="color: var(--danger)">Danger zone</p>
+      <p class="text-sm mb-4" style="color: var(--ink-soft)">Sign out of Modus on this device.</p>
+      <button id="signout-btn" class="btn-secondary">Sign out</button>
+    </div>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/account.js"></script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Log in or sign up — Modus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="min-h-screen flex flex-col">
+
+<header class="px-6 py-6">
+  <a href="index.html" class="font-display text-2xl">Modus<span style="color: var(--cobalt)">.</span></a>
+</header>
+
+<main class="flex-1 flex items-center justify-center px-6 pb-16">
+  <div class="w-full max-w-md">
+    <div class="flex gap-2 mb-6 p-1 rounded-md" style="background: var(--paper-dim); width: fit-content;">
+      <button id="tab-login" class="pill active" data-tab="login">Log in</button>
+      <button id="tab-signup" class="pill" data-tab="signup">Sign up</button>
+    </div>
+
+    <div class="card p-8">
+      <h1 class="font-display text-2xl mb-1" id="form-title">Welcome back</h1>
+      <p class="eyebrow mb-6" id="form-subtitle">Log in to keep generating</p>
+
+      <button id="google-btn" class="btn-secondary w-full mb-4 flex items-center justify-center gap-2">
+        <span>G</span> Continue with Google
+      </button>
+
+      <div class="flex items-center gap-3 my-4">
+        <div class="flex-1 h-px" style="background: var(--line)"></div>
+        <span class="eyebrow">or</span>
+        <div class="flex-1 h-px" style="background: var(--line)"></div>
+      </div>
+
+      <form id="auth-form" class="flex flex-col gap-4">
+        <div>
+          <label class="eyebrow block mb-2">Email</label>
+          <input type="email" id="email" required class="input-field" placeholder="you@email.com">
+        </div>
+        <div>
+          <label class="eyebrow block mb-2">Password</label>
+          <input type="password" id="password" required minlength="6" class="input-field" placeholder="••••••••">
+        </div>
+        <button type="submit" id="submit-btn" class="btn-primary w-full mt-2">Log in</button>
+      </form>
+
+      <p id="auth-error" class="text-sm mt-4 hidden" style="color: var(--danger)"></p>
+      <p id="auth-notice" class="text-sm mt-4 hidden" style="color: var(--forest)"></p>
+    </div>
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/auth.js"></script>
+</body>
+</html>

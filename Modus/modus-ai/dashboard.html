@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Generate — Modus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="app-shell">
+  <aside class="sidebar hidden md:block" data-sidebar-container></aside>
+  <div class="md:hidden" data-topbar-container></div>
+
+  <main class="px-5 md:px-10 py-8 max-w-4xl w-full mx-auto">
+
+    <div class="flex items-center justify-between mb-2">
+      <h1 class="font-display text-3xl">Generate</h1>
+      <span id="usage-badge" class="eyebrow"></span>
+    </div>
+    <div id="usage-notice" class="hidden card p-3 mb-6 text-sm" style="color: var(--gold); border-color: var(--gold)"></div>
+
+    <div class="flex items-center gap-2 text-sm mb-6 flex-wrap" style="color: var(--ink-soft)">
+      <span id="personalize-summary">Personalized for your profile</span>
+      <button type="button" id="personalize-toggle" class="underline">change</button>
+    </div>
+    <div id="personalize-panel" class="hidden grid sm:grid-cols-2 gap-4 mb-6 card p-4">
+      <div>
+        <label class="eyebrow block mb-2">Role for this post</label>
+        <select id="role-select" class="input-field"></select>
+      </div>
+      <div>
+        <label class="eyebrow block mb-2">Niche for this post</label>
+        <select id="niche-select" class="input-field"></select>
+      </div>
+    </div>
+
+    <form id="gen-form" class="flex flex-col gap-8 mt-6">
+
+      <div>
+        <p class="eyebrow mb-3"><span class="eyebrow-num">01</span>What do you need</p>
+        <div class="flex flex-wrap gap-3">
+          <label class="checkbox-card flex items-center gap-2" data-output-card="captions">
+            <input type="checkbox" value="captions" checked class="output-check"> Captions
+          </label>
+          <label class="checkbox-card flex items-center gap-2" data-output-card="hooks">
+            <input type="checkbox" value="hooks" checked class="output-check"> Hooks
+          </label>
+          <label class="checkbox-card flex items-center gap-2" data-output-card="hashtags">
+            <input type="checkbox" value="hashtags" checked class="output-check"> Hashtags
+          </label>
+        </div>
+      </div>
+
+      <div>
+        <p class="eyebrow mb-3"><span class="eyebrow-num">02</span>Tone / style</p>
+        <div id="tone-pills" class="flex flex-wrap gap-2"></div>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-8">
+        <div>
+          <p class="eyebrow mb-3"><span class="eyebrow-num">03</span>Caption length</p>
+          <div id="length-pills" class="flex flex-wrap gap-2"></div>
+        </div>
+        <div>
+          <p class="eyebrow mb-3"><span class="eyebrow-num">04</span>Formatting style</p>
+          <select id="format-select" class="input-field"></select>
+        </div>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-8">
+        <div id="captions-count-wrap">
+          <p class="eyebrow mb-3"><span class="eyebrow-num">05</span>Number of captions</p>
+          <div class="flex items-center gap-3">
+            <button type="button" class="stepper-btn" data-stepper="captions" data-delta="-1">−</button>
+            <span id="captions-count" class="font-display text-xl w-6 text-center">3</span>
+            <button type="button" class="stepper-btn" data-stepper="captions" data-delta="1">+</button>
+          </div>
+        </div>
+        <div id="hashtags-count-wrap">
+          <p class="eyebrow mb-3"><span class="eyebrow-num">06</span>Number of hashtags</p>
+          <div class="flex items-center gap-3">
+            <button type="button" class="stepper-btn" data-stepper="hashtags" data-delta="-1">−</button>
+            <span id="hashtags-count" class="font-display text-xl w-6 text-center">5</span>
+            <button type="button" class="stepper-btn" data-stepper="hashtags" data-delta="1">+</button>
+          </div>
+        </div>
+      </div>
+      <p class="eyebrow -mt-4">Hooks are always generated 5 at a time</p>
+
+      <div>
+        <div class="flex items-center justify-between mb-3">
+          <p class="eyebrow"><span class="eyebrow-num">07</span>What's this post about?</p>
+          <label class="flex items-center gap-2 text-sm" style="color: var(--ink-soft)">
+            <input type="checkbox" id="bulk-toggle"> Bulk mode
+          </label>
+        </div>
+
+        <div id="single-topic-wrap">
+          <textarea id="topic-input" class="input-field" rows="3" placeholder="e.g. Launching my new matcha oat latte for fall"></textarea>
+          <div class="mt-3">
+            <label class="eyebrow block mb-2">Attach a reference image (optional)</label>
+            <input type="file" id="image-input" accept="image/*" class="text-sm">
+          </div>
+        </div>
+
+        <div id="bulk-topic-wrap" class="hidden">
+          <textarea id="bulk-input" class="input-field" rows="6" placeholder="One topic per line"></textarea>
+        </div>
+      </div>
+
+      <button type="submit" id="generate-btn" class="btn-primary self-start px-8">Generate</button>
+    </form>
+
+    <div id="results-wrap" class="mt-12 hidden">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="font-display text-2xl">Results</h2>
+        <button id="copy-all-btn" class="btn-secondary text-sm">Copy all combined</button>
+      </div>
+      <div id="results-container" class="flex flex-col gap-8"></div>
+    </div>
+
+    <div id="loading-wrap" class="mt-12 hidden flex flex-col gap-4">
+      <div class="skeleton h-6 w-1/3"></div>
+      <div class="skeleton h-24 w-full"></div>
+      <div class="skeleton h-24 w-full"></div>
+    </div>
+
+  </main>
+</div>
+
+<script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/paddle.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pricing — Modus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="max-w-6xl mx-auto flex items-center justify-between px-6 py-6">
+  <a href="index.html" class="font-display text-2xl">Modus<span style="color: var(--cobalt)">.</span></a>
+  <button data-theme-toggle class="pill"><span data-theme-icon>☾</span></button>
+</header>
+
+<main class="max-w-4xl mx-auto px-6 py-12">
+  <p class="eyebrow mb-3 text-center">Simple, honest pricing</p>
+  <h1 class="font-display text-4xl md:text-5xl text-center mb-14">One free tier. One paid tier.</h1>
+
+  <div class="grid md:grid-cols-2 gap-6">
+    <div class="card p-8 flex flex-col">
+      <p class="eyebrow mb-2">Starter</p>
+      <p class="font-display text-4xl mb-1">Free</p>
+      <p class="text-sm mb-6" style="color: var(--ink-soft)">5 generations a month</p>
+      <ul class="flex flex-col gap-3 text-sm mb-8 flex-1">
+        <li>✓ Hooks, captions & hashtags</li>
+        <li>✓ All 17 tones and 6 formats</li>
+        <li>✓ Up to 15 saved history entries</li>
+        <li>✓ Bulk mode</li>
+      </ul>
+      <a href="auth.html?mode=signup" class="btn-secondary text-center">Start free</a>
+    </div>
+
+    <div class="card p-8 flex flex-col" style="border-color: var(--cobalt); border-width: 2px;">
+      <p class="eyebrow mb-2" style="color: var(--cobalt)">Unlimited</p>
+      <p class="font-display text-4xl mb-1">$5<span class="text-base font-sans"> /month</span></p>
+      <p class="text-sm mb-6" style="color: var(--ink-soft)">Unlimited generations, no cap</p>
+      <ul class="flex flex-col gap-3 text-sm mb-8 flex-1">
+        <li>✓ Everything in Starter</li>
+        <li>✓ Unlimited generations</li>
+        <li>✓ Priority queue for AI calls</li>
+        <li>✓ Cancel anytime</li>
+      </ul>
+      <button id="upgrade-btn" class="btn-primary">Upgrade now</button>
+    </div>
+  </div>
+</main>
+
+<script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/paddle.js"></script>
+<script src="js/ui.js"></script>
+<script>
+  document.getElementById("upgrade-btn").addEventListener("click", async () => {
+    const { data: { session } } = await supabaseClient.auth.getSession();
+    if (!session) { window.location.href = "auth.html?mode=signup"; return; }
+    openUpgradeCheckout(session.user.email, session.user.id);
+  });
+</script>
+</body>
+</html>
